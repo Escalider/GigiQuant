@@ -19,7 +19,7 @@ double volatility(Node *head, double rand_avg, int n)
     return sqrt(sum);
 }
 
-int main(int argc, char *argv[])
+int main(int argc, const char *argv[])
 {
     double rand_avg;
     int n;
