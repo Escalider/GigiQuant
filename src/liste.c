@@ -48,18 +48,18 @@ Node *create_list(double *rand_avg, int *n, FILE *infile)
 
 
 
-void show_list(Node *head)
-{
-    Node *p = head;
-    while(p != NULL)
-    {
-        printf("%.2f\n", p->val);
-        printf("%.3f\n", p->rand);
-        printf("\n");
-        p = p->next;
-    }
-    printf("\n");
-}
+// void show_list(Node *head)
+// {
+//     Node *p = head;
+//     while(p != NULL)
+//     {
+//         printf("%.2f\n", p->val);
+//         printf("%.3f\n", p->rand);
+//         printf("\n");
+//         p = p->next;
+//     }
+//     printf("\n");
+// }
 
 
 void clear_list(Node **head)
