@@ -64,10 +64,10 @@ void show_list(Node *head)
 
 void clear_list(Node **head)
 {
-    Node *temp;
+    
     while((*head)!=NULL)
     {
-        temp = *head;
+        Node *temp = *head;
         (*head) = (*head)->next;
         free(temp);
     }
