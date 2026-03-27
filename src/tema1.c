@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <math.h>
 
+
 double volatility(Node *head, double rand_avg, int n)
 {
     Node *p = head;
@@ -18,7 +19,6 @@ double volatility(Node *head, double rand_avg, int n)
     return sqrt(sum);
 }
 
-
 int main(int argc, char *argv[])
 {
     double rand_avg;
@@ -33,22 +33,5 @@ int main(int argc, char *argv[])
     fclose(infile);
 
     double vol = volatility(head, rand_avg, n);
-
-    double Sharpe = (long)(rand_avg/vol * 1000)/1000.0;
-
-    double rand_trun = (long)(rand_avg * 1000)/1000.0;
-    double vol_trun = (long)(vol * 1000)/1000.0;
-
-    FILE *outfile = fopen(argv[2], "wt");
-
-    printf("%s", argv[2]);
-
-    fprintf(outfile, "%.3f\n", rand_trun);
-    fprintf(outfile, "%.3f\n", vol_trun);
-    fprintf(outfile, "%.3f\n", Sharpe);
-
-    fclose(outfile);
-
-    clear_list(&head);
     return 0;
 }

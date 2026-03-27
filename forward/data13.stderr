@@ -1,5 +1,5 @@
-==873==  If you believe this happened as a result of a stack
-==873==  overflow in your program's main thread (unlikely but
-==873==  possible), you can try to increase the size of the
-==873==  main thread stack using the --main-stacksize= flag.
-==873==  The main thread stack size used in this run was 8388608.
+==1671==  If you believe this happened as a result of a stack
+==1671==  overflow in your program's main thread (unlikely but
+==1671==  possible), you can try to increase the size of the
+==1671==  main thread stack using the --main-stacksize= flag.
+==1671==  The main thread stack size used in this run was 8388608.
