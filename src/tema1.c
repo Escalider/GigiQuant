@@ -64,8 +64,12 @@ void task2(char *argv[])
     queue *q = create_queue();
 
 
+    opportunity(top1, top2, top3, q, mat);
 
-    show_queue(q);
+
+    FILE *outfile = fopen(argv[2], "wt");
+
+    show_queue(q, outfile);
     free_stack(&top1);
     free_stack(&top2);
     free_stack(&top3);

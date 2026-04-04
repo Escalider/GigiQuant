@@ -36,5 +36,7 @@ void create(City **top1, City **top2, City **top3, FILE *infile, char ***mat);
 void free_stack(City **top);
 void free_mat(char **mat);
 queue *create_queue();
-void show_queue(queue *q);
+void show_queue(queue *q, FILE *outfile);
 void free_queue(queue *q);
+void enque(queue *q, char *s);
+void opportunity(City *top1, City *top2, City *top3, queue *q, char **mat);

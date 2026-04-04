@@ -107,3 +107,96 @@ void create(City **top1, City **top2, City **top3, FILE *infile, char ***mat)
     read_file(top3, infile);
     free(s);
 }
+
+queue *create_queue()
+{
+    queue *q = (queue *)malloc(sizeof(queue));
+    if(q == NULL) return NULL;
+    q->front = NULL;
+    q->rear = NULL;
+    return q;
+}
+
+void show_queue(queue *q, FILE *outfile)
+{
+    NodeQ *temp = q->front;
+    while(temp != NULL)
+    {
+        fprintf(outfile, "%s\n", temp->mes);
+        temp = temp->next;
+    }
+}
+
+
+void free_queue(queue *q)
+{
+    NodeQ *aux;
+    while(q->front != NULL)
+    {
+        aux = q->front;
+        q->front = q->front->next;
+        free(aux);
+    }
+    free(q);
+}
+
+
+void enque(queue *q, char *s)
+{
+    NodeQ *newNodeQ = (NodeQ *)malloc(sizeof(NodeQ));
+    strcpy(newNodeQ->mes, s);
+    newNodeQ->next = NULL;
+    
+
+    if(q->rear == NULL)
+    {
+        q->rear = newNodeQ;
+        q->front = newNodeQ;
+    }
+    else
+    {
+        (q->rear)->next = newNodeQ;
+        (q->rear) = newNodeQ;
+    }
+    if(q->front == NULL) q->front = q->rear;
+}
+
+void opportunity(City *top1, City *top2, City *top3, queue *q, char **mat)
+{
+    int k = 1;
+    double tbd;
+    City *p1 = top1;
+    City *p2 = top2;
+    City *p3 = top3;
+    char s[40];
+    while(p1 != NULL && p2 != NULL && p3 != NULL)
+    {
+        
+        if(p1->val == p2->val && p1->val != p3->val)
+        {
+            double value = fabs(p1->val - p3->val);
+            snprintf(s, 40, "ziua %d - %.2f - %s", k, value, mat[2]);
+            enque(q, s);
+        }
+
+        if(p1->val == p3->val && p1->val != p2->val)
+        {
+            double value = fabs(p1->val - p2->val);
+            snprintf(s, 40, "ziua %d - %.2f - %s", k, value, mat[1]);
+            enque(q, s);
+        }
+
+        if(p3->val == p2->val && p1->val != p3->val)
+        {
+            double value = fabs(p1->val - p3->val);
+            snprintf(s, 40, "ziua %d - %.2f - %s", k, value, mat[0]);
+            enque(q, s);
+        }
+        k++;
+        p1 = p1->next; 
+        p2 = p2->next;
+        p3 = p3->next;
+        
+    }
+    
+}
