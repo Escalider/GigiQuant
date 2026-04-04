@@ -49,7 +49,7 @@ void task2(char *argv[])
     City *top3 = NULL;
     char **mat;
 
-    FILE *infile = fopen("in.in", "rt");
+    FILE *infile = fopen(argv[1], "rt");
     create(&top1, &top2, &top3, infile, &mat);
 
     // printf("%s\n\n", mat[0]);
@@ -61,11 +61,16 @@ void task2(char *argv[])
     // printf("%s\n\n", mat[2]);
     // show_stack(top3);
 
+    queue *q = create_queue();
 
+
+
+    show_queue(q);
     free_stack(&top1);
     free_stack(&top2);
     free_stack(&top3);
     free_mat(mat);
+    free_queue(q);
     fclose(infile);
 }
 
