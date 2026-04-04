@@ -1,6 +1,9 @@
+#include <ctype.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include "liste.h"
+#include <string.h>
+#include <math.h>
 
 
 Node *create_list(double *rand_avg, int *n, FILE *infile)
@@ -61,14 +64,40 @@ Node *create_list(double *rand_avg, int *n, FILE *infile)
 //     printf("\n");
 // }
 
+double volatility(Node *head, double rand_avg, int n)
+{
+    Node *p = head;
+    p = p->next;
+    double sum = 0;
+    while(p!=NULL)
+    {
+        sum+=pow((p->rand-rand_avg), 2);
+        p = p->next;
+    }
+    sum/=(n-1);
+
+    return sqrt(sum);
+}
 
 void clear_list(Node **head)
 {
-    
     while((*head)!=NULL)
     {
         Node *temp = *head;
         (*head) = (*head)->next;
         free(temp);
     }
+}
+
+int check_num(const char num[])
+{
+    int n = strlen(num), number = 0;
+    for(int i = 0; i < n; i++)
+    {
+        if(isdigit(num[i]))
+        {
+            number = number * 10 +(num[i] - '0');
+        }
+    }
+    return number;
 }
