@@ -1,25 +1,14 @@
 #include "liste.h"
+#include "stive.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 
 
-double volatility(Node *head, double rand_avg, int n)
-{
-    Node *p = head;
-    p = p->next;
-    double sum = 0;
-    while(p!=NULL)
-    {
-        sum+=pow((p->rand-rand_avg), 2);
-        p = p->next;
-    }
-    sum/=(n-1);
 
-    return sqrt(sum);
-}
 
-int main(int argc, const char *argv[])
+
+void task1(char *argv[])
 {
     double rand_avg;
     int n;
@@ -50,5 +39,48 @@ int main(int argc, const char *argv[])
     fclose(outfile);
 
     clear_list(&head);
+}
+
+
+void task2(char *argv[])
+{
+    City *top1 = NULL;
+    City *top2 = NULL;
+    City *top3 = NULL;
+    char **mat;
+
+    FILE *infile = fopen("in.in", "rt");
+    create(&top1, &top2, &top3, infile, &mat);
+
+    // printf("%s\n\n", mat[0]);
+    // show_stack(top1);
+
+    // printf("%s\n\n", mat[1]);
+    // show_stack(top2);
+
+    // printf("%s\n\n", mat[2]);
+    // show_stack(top3);
+
+
+    free_stack(&top1);
+    free_stack(&top2);
+    free_stack(&top3);
+    free_mat(mat);
+    fclose(infile);
+}
+
+
+
+
+int main(int argc, char *argv[])
+{
+    int task_nr = check_num(argv[1]);
+    
+    if(task_nr >=1 && task_nr <=5)
+        task1(argv);
+
+    if(task_nr >=6 && task_nr <=10)
+        task2(argv);
+    
     return 0;
 }
