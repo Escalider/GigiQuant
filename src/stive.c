@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <limits.h>
+#include <math.h>
 
 
 int isEmpty(const City *top)
@@ -54,15 +55,15 @@ void free_mat(char **mat)
 }
 
 
-void show_stack(City *top)
-{
-    City *p = top;
-    while(p != NULL)
-    {
-        printf("%.2f\n", p->val);
-        p = p->next;
-    }
-}
+// void show_stack(City *top)
+// {
+//     City *p = top;
+//     while(p != NULL)
+//     {
+//         printf("%.2f\n", p->val);
+//         p = p->next;
+//     }
+// }
 
 
 void read_file(City **top, FILE *infile)
@@ -130,10 +131,10 @@ void show_queue(queue *q, FILE *outfile)
 
 void free_queue(queue *q)
 {
-    NodeQ *aux;
+    
     while(q->front != NULL)
     {
-        aux = q->front;
+        NodeQ *aux = q->front;
         q->front = q->front->next;
         free(aux);
     }
@@ -141,7 +142,7 @@ void free_queue(queue *q)
 }
 
 
-void enque(queue *q, char *s)
+void enque(queue *q, const char *s)
 {
     NodeQ *newNodeQ = (NodeQ *)malloc(sizeof(NodeQ));
     strcpy(newNodeQ->mes, s);
@@ -164,7 +165,6 @@ void enque(queue *q, char *s)
 void opportunity(City *top1, City *top2, City *top3, queue *q, char **mat)
 {
     int k = 1;
-    double tbd;
     City *p1 = top1;
     City *p2 = top2;
     City *p3 = top3;
