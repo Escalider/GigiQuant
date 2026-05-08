@@ -24,3 +24,4 @@ void citire(StockList **head, double **mat, int n, FILE *infile);
 TreeNode* createNodeStocks(StockList *stocks);
 void clear_lista(StockList **head);
 TreeNode *create(double **mat, StockList *head, int i, int nr_zile);
+void gasire_drum(TreeNode *root, StockList *head, char *s, int i, int *gasit);

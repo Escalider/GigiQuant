@@ -98,6 +98,19 @@ void task3(const char *argv[])
 
     TreeNode *root = create(mat, head, 1, n);
 
+    FILE *outfile = fopen(argv[2], "wt");
+    opuse(root, head, n, outfile);
+    fclose(outfile);
+    // afisare_matrice_si_lista(head, mat, n)
+
+    for(int i = 0; i < n; i++) {
+        free(mat[i]);
+    }
+    free(mat);
+
+    clear_list(&head);
+    clear_tree(root);
+
 }
 
 int main(int argc, char *argv[])

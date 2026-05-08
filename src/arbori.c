@@ -161,3 +161,31 @@ TreeNode *create(double **mat, StockList *head, int i, int nr_zile)
     return node;
 
 }
+
+void gasire_drum(TreeNode *root, StockList *head, char *s, int i, int *gasit)
+{
+    if(root == NULL || *gasit == 1) return;
+    if(root->left == NULL && root->right == NULL)
+    {   
+        StockList *aux = root->stocks;
+        while(aux != NULL) {
+            if(strcmp(aux->symbol, head->symbol) == 0) {
+                s[i] = '\0';
+                *gasit = 1; 
+                return;
+            }
+            aux = aux->next;
+        }
+        return; 
+    }
+
+    if(*gasit == 0) {
+        s[i] = 's';
+        gasire_drum(root->left, head, s, i+1, gasit);
+    }
+
+    if(*gasit == 0) {
+        s[i] = 'd';
+        gasire_drum(root->right, head, s, i+1, gasit);
+    }
+}
