@@ -23,5 +23,7 @@ double **create_matrice(int n);
 void citire(StockList **head, double **mat, int n, FILE *infile);
 TreeNode* createNodeStocks(StockList *stocks);
 void clear_lista(StockList **head);
+void clear_tree(TreeNode *root);
 TreeNode *create(double **mat, StockList *head, int i, int nr_zile);
 void gasire_drum(TreeNode *root, StockList *head, char *s, int i, int *gasit);
+void opuse(TreeNode *root, StockList *head, int nr_zile, FILE *outfile);

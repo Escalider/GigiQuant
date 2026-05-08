@@ -126,6 +126,20 @@ void clear_lista(StockList **head)
     }
 }
 
+void clear_tree(TreeNode *root)
+{
+    if (root == NULL) {
+        return;
+    }
+    clear_tree(root->left);
+    clear_tree(root->right);
+    if (root->stocks != NULL) {
+        clear_lista(&(root->stocks));
+    }
+
+    free(root);
+}
+
 TreeNode *create(double **mat, StockList *head, int i, int nr_zile)
 {
     if(head == NULL) return NULL;
@@ -144,7 +158,7 @@ TreeNode *create(double **mat, StockList *head, int i, int nr_zile)
     while(aux != NULL)
     {
         int j = aux->index;
-        // printf("Pentru actiunea %s ziua %d este %.3f si ziua %d este %.3f\n",aux->symbol , i, mat[i][j], i-1, mat[i-1][j]);
+        // printf("Pentru actiunea %s ziua %d este %.2f si ziua %d este %.2f\n",aux->symbol , i, mat[i][j], i-1, mat[i-1][j]);
         if(mat[i][j] < mat[i-1][j])
             addAtEnd(&scazute, aux->symbol, j);
         else
@@ -188,4 +202,82 @@ void gasire_drum(TreeNode *root, StockList *head, char *s, int i, int *gasit)
         s[i] = 'd';
         gasire_drum(root->right, head, s, i+1, gasit);
     }
+}
+
+void opuse(TreeNode *root, StockList *head, int nr_zile, FILE *outfile)
+{
+    char **matrice = (char **) calloc(100, sizeof(char *));
+    for(int i = 0; i < 100; i++)
+    {
+        matrice[i] = (char *) calloc(32, sizeof(char));
+    }
+
+    char *s = (char *)calloc((nr_zile) , sizeof(char));
+    char *drum = (char *)calloc((nr_zile) , sizeof(char));
+    StockList *aux = head;
+    int j = 0;
+    while(aux != NULL)
+    {
+        TreeNode *tree1 = root;
+        TreeNode *tree2 = root;
+        int gasit = 0, gol = 0;
+        gasire_drum(root, aux, s, 0, &gasit);
+        strcpy(drum, s);
+        int n = strlen(drum);
+        for(int i = 0; i < n; i++)
+        {
+            if(drum[i] == 's') 
+            {
+                tree1 = tree1->left;
+                if(tree2->right!=NULL) tree2 = tree2->right;
+                else
+                {
+                    gol = 1;
+                    break;
+                }                
+            }
+            else 
+            {
+                tree1 = tree1->right;
+                if(tree2->left != NULL) tree2 = tree2->left;
+                else
+                {
+                    gol = 1;
+                    break;
+                }
+            }
+        }
+
+        if(gol == 0)
+        {
+            StockList *p2 = tree2->stocks;
+            while(p2 != NULL)
+            {
+                sprintf(matrice[j], "%s-%s", tree1->stocks->symbol, p2->symbol);
+                j++;
+                p2 = p2->next;
+            }
+                
+            StockList *temp = tree1->stocks;
+            tree1->stocks = tree1->stocks->next;
+            free(temp);
+        }
+        memset(s, 0, nr_zile);
+        memset(drum, 0, nr_zile);
+        aux = aux->next;
+    }
+    
+    for(int i = 0; i < j; i++)
+    {
+        fprintf(outfile, "%s", matrice[i]);
+        if(i != j-1) fprintf(outfile, "\n");
+    }
+
+    for(int i = 0; i < 100; i++) {
+        free(matrice[i]);
+    }
+    free(matrice);
+    
+    free(s);
+    free(drum);
 }
