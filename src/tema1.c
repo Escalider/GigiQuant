@@ -51,7 +51,7 @@ void task2(char *argv[])
     char **mat;
 
     FILE *infile = fopen(argv[1], "rt");
-    create(&top1, &top2, &top3, infile, &mat);
+    create_s(&top1, &top2, &top3, infile, &mat);
 
     // printf("%s\n\n", mat[0]);
     // show_stack(top1);
@@ -95,6 +95,9 @@ void task3(const char *argv[])
     
     citire(&head, mat, n, infile);
     fclose(infile);
+
+    TreeNode *root = create(mat, head, 1, n);
+
 }
 
 int main(int argc, char *argv[])

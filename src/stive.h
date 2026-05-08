@@ -33,7 +33,7 @@ double pop(City **top);
 char **create_mat();
 void show_stack(City *top);
 void read_file(City **top, FILE *infile);
-void create(City **top1, City **top2, City **top3, FILE *infile, char ***mat);
+void create_s(City **top1, City **top2, City **top3, FILE *infile, char ***mat);
 void free_stack(City **top);
 void free_mat(char **mat);
 queue *create_queue();

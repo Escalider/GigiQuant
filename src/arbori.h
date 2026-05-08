@@ -21,3 +21,6 @@ void addAtEnd(StockList** head, char sym[MAX_SYM], int index);
 int nr_zile(FILE *infile);
 double **create_matrice(int n);
 void citire(StockList **head, double **mat, int n, FILE *infile);
+TreeNode* createNodeStocks(StockList *stocks);
+void clear_lista(StockList **head);
+TreeNode *create(double **mat, StockList *head, int i, int nr_zile);

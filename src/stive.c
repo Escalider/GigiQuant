@@ -88,7 +88,7 @@ void free_stack(City **top) {
 }
 
 
-void create(City **top1, City **top2, City **top3, FILE *infile, char ***mat)
+void create_s(City **top1, City **top2, City **top3, FILE *infile, char ***mat)
 {    
     *mat = create_mat();
     char *s = calloc(20, sizeof(char));
