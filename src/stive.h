@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 struct Element
 {
@@ -38,5 +39,5 @@ void free_mat(char **mat);
 queue *create_queue();
 void show_queue(queue *q, FILE *outfile);
 void free_queue(queue *q);
-void enque(queue *q, char *s);
+void enque(queue *q, const char *s);
 void opportunity(City *top1, City *top2, City *top3, queue *q, char **mat);

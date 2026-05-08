@@ -1,5 +1,6 @@
 #include "liste.h"
 #include "stive.h"
+#include "arbori.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -79,7 +80,22 @@ void task2(char *argv[])
 }
 
 
+void task3(const char *argv[])
+{
+    FILE *infile = fopen(argv[1], "rt");
+    if(infile == NULL)
+    {
+        puts("Nu se deschide");
+        exit(1);
+    }
 
+    StockList *head = NULL;
+    int n = nr_zile(infile);
+    double **mat = create_matrice(n);
+    
+    citire(&head, mat, n, infile);
+    fclose(infile);
+}
 
 int main(int argc, char *argv[])
 {
@@ -91,5 +107,7 @@ int main(int argc, char *argv[])
     if(task_nr >=6 && task_nr <=10)
         task2(argv);
     
+    if(task_nr >= 11 && task_nr <= 15)
+        task3(argv);
     return 0;
 }
