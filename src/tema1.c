@@ -142,7 +142,11 @@ void task4(char *argv[])
     }
 
     creare_grafic(mark, values, N, n, minim);
+
+    FILE *outfile = fopen(argv[2], "wt");
+
     
+
 }
 int main(int argc, char *argv[])
 {

@@ -3,6 +3,51 @@
 #include <stdlib.h>
 #include <string.h>
 
+
+int cmmdc(int a, int b)
+{
+    while(b != 0)
+    {
+        int r = a % b;
+        a = b;
+        b = r;
+    }
+    return a;
+}
+
+
+grafic adunare(grafic a, grafic b)
+{
+    if (a.up == 0) return b;
+    if (b.up == 0) return a;
+
+    grafic c;
+    c.up = a.up * b.down + b.up * a.down;
+    c.down = a.down * b.down;
+    
+    int div = cmmdc(c.up, c.down);
+    c.up /= div;
+    c.down /= div;
+    
+    return c;
+}
+
+grafic inmultire(grafic a, grafic b)
+{
+    grafic c;
+    c.up = a.up * b.up;
+    c.down = a.down * b.down;
+    
+    int div = cmmdc(c.up, c.down);
+    if (div != 0)
+    {
+        c.up /= div;
+        c.down /= div;
+    }
+    return c;
+}
+
+
 int convert(double value, double d)
 {
     return (int)(value/d);
