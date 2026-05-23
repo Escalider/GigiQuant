@@ -16,8 +16,8 @@ struct TreeNode *left;
 struct TreeNode *right; 
 } TreeNode;
 
-void addAtBeginning(StockList** head, char sym[MAX_SYM], int index);
-void addAtEnd(StockList** head, char sym[MAX_SYM], int index);
+void addAtBeginning(StockList** head, const char sym[MAX_SYM], int index);
+void addAtEnd(StockList** head, const char sym[MAX_SYM], int index);
 int nr_zile(FILE *infile);
 double **create_matrice(int n);
 void citire(StockList **head, double **mat, int n, FILE *infile);

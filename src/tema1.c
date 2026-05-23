@@ -1,6 +1,7 @@
 #include "liste.h"
 #include "stive.h"
 #include "arbori.h"
+#include "mark.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -9,7 +10,7 @@
 
 
 
-void task1(char *argv[])
+void task1(const char *argv[])
 {
     double rand_avg;
     int n;
@@ -43,7 +44,7 @@ void task1(char *argv[])
 }
 
 
-void task2(char *argv[])
+void task2(const char *argv[])
 {
     City *top1 = NULL;
     City *top2 = NULL;
@@ -113,6 +114,24 @@ void task3(const char *argv[])
 
 }
 
+
+void task4(char *argv[])
+{
+    FILE *infile = fopen(argv[1], "rt");
+    if(infile == NULL)
+    {
+        puts("Nu se deschide");
+        exit(1);
+    }
+
+    int N, k, p_start, p_target, maxim, minim;
+    double d;
+    int *values;
+    
+    citire_fis(&N, &d, &k, &p_start, &p_target, &values, infile, &maxim, &minim);
+
+    fclose(infile);
+}
 int main(int argc, char *argv[])
 {
     int task_nr = check_num(argv[1]);
@@ -125,5 +144,8 @@ int main(int argc, char *argv[])
     
     if(task_nr >= 11 && task_nr <= 15)
         task3(argv);
+
+    if(task_nr >=16 && task_nr <=20)
+        task4(argv);
     return 0;
 }
