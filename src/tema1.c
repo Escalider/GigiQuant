@@ -1,25 +1,16 @@
 #include "liste.h"
+#include "stive.h"
+#include "arbori.h"
+#include "mark.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 
 
-double volatility(Node *head, double rand_avg, int n)
-{
-    Node *p = head;
-    p = p->next;
-    double sum = 0;
-    while(p!=NULL)
-    {
-        sum+=pow((p->rand-rand_avg), 2);
-        p = p->next;
-    }
-    sum/=(n-1);
 
-    return sqrt(sum);
-}
 
-int main(int argc, const char *argv[])
+
+void task1(const char *argv[])
 {
     double rand_avg;
     int n;
@@ -50,5 +41,135 @@ int main(int argc, const char *argv[])
     fclose(outfile);
 
     clear_list(&head);
+}
+
+
+void task2(const char *argv[])
+{
+    City *top1 = NULL;
+    City *top2 = NULL;
+    City *top3 = NULL;
+    char **mat;
+
+    FILE *infile = fopen(argv[1], "rt");
+    create_s(&top1, &top2, &top3, infile, &mat);
+
+    // printf("%s\n\n", mat[0]);
+    // show_stack(top1);
+
+    // printf("%s\n\n", mat[1]);
+    // show_stack(top2);
+
+    // printf("%s\n\n", mat[2]);
+    // show_stack(top3);
+
+    queue *q = create_queue();
+
+
+    opportunity(top1, top2, top3, q, mat);
+
+
+    FILE *outfile = fopen(argv[2], "wt");
+
+    show_queue(q, outfile);
+    free_stack(&top1);
+    free_stack(&top2);
+    free_stack(&top3);
+    free_mat(mat);
+    free_queue(q);
+    fclose(infile);
+}
+
+
+void task3(const char *argv[])
+{
+    FILE *infile = fopen(argv[1], "rt");
+    if(infile == NULL)
+    {
+        puts("Nu se deschide");
+        exit(1);
+    }
+
+    StockList *head = NULL;
+    int n = nr_zile(infile);
+    double **mat = create_matrice(n);
+    
+    citire(&head, mat, n, infile);
+    fclose(infile);
+
+    TreeNode *root = create(mat, head, 1, n);
+
+    FILE *outfile = fopen(argv[2], "wt");
+    opuse(root, head, n, outfile);
+    fclose(outfile);
+    // afisare_matrice_si_lista(head, mat, n)
+
+    for(int i = 0; i < n; i++) {
+        free(mat[i]);
+    }
+    free(mat);
+
+    clear_list(&head);
+    clear_tree(root);
+
+}
+
+
+void task4(const char *argv[])
+{
+    FILE *infile = fopen(argv[1], "rt");
+    if(infile == NULL)
+    {
+        puts("Nu se deschide");
+        exit(1);
+    }
+
+    int N, k, p_start, p_target, maxim, minim;
+    double d;
+    int *values;
+    
+    citire_fis(&N, &d, &k, &p_start, &p_target, &values, infile, &maxim, &minim);
+
+    fclose(infile);
+
+    int n = maxim-minim+1;
+
+
+    grafic **mark = malloc(n * sizeof(grafic*));
+    for(int i = 0; i < n; i++)
+    {
+        mark[i] = calloc(n, sizeof(grafic));
+    }
+
+    creare_grafic(mark, values, N, n, minim);
+
+    FILE *outfile = fopen(argv[2], "wt");
+
+    markov(mark, p_start, p_target, n, k, outfile);
+
+    if (mark == NULL) return ; 
+    for (int i = 0; i < n; i++) {
+        free(mark[i]); 
+    }
+    free(mark);
+    free(values);
+    fclose(outfile);
+
+}
+int main(int argc, char *argv[])
+{
+    int task_nr = check_num(argv[1]);
+    
+    if(task_nr >=1 && task_nr <=5)
+        task1(argv);
+
+    if(task_nr >=6 && task_nr <=10)
+        task2(argv);
+    
+    if(task_nr >= 11 && task_nr <= 15)
+        task3(argv);
+
+    if(task_nr >=16 && task_nr <=20)
+        task4(argv);
     return 0;
 }

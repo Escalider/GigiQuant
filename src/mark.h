@@ -1,0 +1,17 @@
+#include <stdio.h>
+
+typedef struct
+{
+    int up;
+    int down;
+}grafic;
+
+
+int cmmdc(int a, int b);
+grafic adunare(grafic a, grafic b);
+grafic inmultire(grafic a, grafic b);
+void reset(grafic *next, int n);
+void copiaza(grafic *next, grafic *current, int n);
+int convert(double value, double d);
+void citire_fis(int *N, double *d, int *k, int *p_start, int *p_target, int **values, FILE *infile, int *maxim, int *minim);
+void creare_grafic(grafic **mark, const int *values, int N, int n, int minim);
