@@ -131,6 +131,18 @@ void task4(char *argv[])
     citire_fis(&N, &d, &k, &p_start, &p_target, &values, infile, &maxim, &minim);
 
     fclose(infile);
+
+    int n = maxim-minim+1;
+
+
+    grafic **mark = malloc(n * sizeof(grafic*));
+    for(int i = 0; i < n; i++)
+    {
+        mark[i] = calloc(n, sizeof(grafic));
+    }
+
+    creare_grafic(mark, values, N, n, minim);
+    
 }
 int main(int argc, char *argv[])
 {

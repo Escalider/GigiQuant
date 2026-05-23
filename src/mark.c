@@ -34,3 +34,29 @@ void citire_fis(int *N, double *d, int *k, int *p_start, int *p_target, int **va
     *p_start = convert(start, *d) - *minim;
     *p_target = convert(target, *d) - *minim;
 }
+
+
+void creare_grafic(grafic **mark, const int *values, int N, int n, int minim)
+{
+    for(int i = 0; i < N-1; i++)
+    {
+        mark[values[i]-minim][values[i+1]-minim].up++;
+    }
+    
+    for(int i = 0; i < n; i++)
+    {
+        int k = 0;
+        for(int j = 0; j < n; j++)
+        {
+            k+=mark[i][j].up;
+        }
+        for(int j = 0; j < n; j++)
+        {
+            if(mark[i][j].up != 0)
+            {
+                mark[i][j].down = k;
+            }
+        }
+    }
+
+}
