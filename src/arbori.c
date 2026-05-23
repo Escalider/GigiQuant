@@ -4,7 +4,7 @@
 
 
 
-void addAtBeginning(StockList** head, char sym[MAX_SYM], int index)
+void addAtBeginning(StockList** head, const char sym[MAX_SYM], int index)
 {
     StockList *newNode = (StockList*)malloc(sizeof(StockList));
     strcpy(newNode->symbol, sym);
@@ -13,7 +13,7 @@ void addAtBeginning(StockList** head, char sym[MAX_SYM], int index)
     *head = newNode;
 }
 
-void addAtEnd(StockList** head, char sym[MAX_SYM], int index)
+void addAtEnd(StockList** head, const char sym[MAX_SYM], int index)
 {
     if (*head == NULL) {
         addAtBeginning(head, sym, index); 
@@ -25,7 +25,7 @@ void addAtEnd(StockList** head, char sym[MAX_SYM], int index)
         newNode->next = NULL;
         
         while (aux->next != NULL) 
-            aux = aux->next;
+            aux = aux->next;        
         aux->next = newNode;
     }
 }
@@ -117,10 +117,10 @@ TreeNode* createNodeStocks(StockList *stocks)
 
 void clear_lista(StockList **head)
 {
-    StockList *temp;
+    
     while((*head)!=NULL)
     {
-        temp = *head;
+        StockList *temp = *head;
         (*head) = (*head)->next;
         free(temp);
     }
