@@ -115,7 +115,7 @@ void task3(const char *argv[])
 }
 
 
-void task4(char *argv[])
+void task4(const char *argv[])
 {
     FILE *infile = fopen(argv[1], "rt");
     if(infile == NULL)
@@ -145,7 +145,15 @@ void task4(char *argv[])
 
     FILE *outfile = fopen(argv[2], "wt");
 
-    
+    markov(mark, p_start, p_target, n, k, outfile);
+
+    if (mark == NULL) return ; 
+    for (int i = 0; i < n; i++) {
+        free(mark[i]); 
+    }
+    free(mark);
+    free(values);
+    fclose(outfile);
 
 }
 int main(int argc, char *argv[])

@@ -54,6 +54,25 @@ int convert(double value, double d)
 }
 
 
+void reset(grafic *next, int n)
+{
+    for(int i = 0; i < n; i++)
+    {
+        next[i].up = 0;
+        next[i].down = 1;
+    }
+}
+
+void copiaza(grafic *next, grafic *current, int n)
+{
+    for(int i = 0; i < n; i++)
+    {
+        current[i].up = next[i].up;
+        current[i].down = next[i].down;
+    }
+}
+
+
 void citire_fis(int *N, double *d, int *k, int *p_start, int *p_target, int **values, FILE *infile, int *maxim, int *minim)
 {
     double start, target;
@@ -104,4 +123,83 @@ void creare_grafic(grafic **mark, const int *values, int N, int n, int minim)
         }
     }
 
+}
+
+void markov(grafic **mark, int p_start, int p_target, int n, int k, FILE *outfile)
+{
+    grafic *current = calloc(n, sizeof(grafic));
+    grafic *next = calloc(n, sizeof(grafic));
+
+    char **matrice = (char **)calloc(50, sizeof(char *));
+    for(int i = 0; i < 50; i++)
+    {
+        matrice[i] = (char *)calloc(15, sizeof(char));
+    }
+
+    for(int i = 0; i < n; i++) {
+        current[i].down = 1;
+        next[i].down = 1;
+    }
+
+
+    current[p_start].up = 1;
+    current[p_start].down = 1;
+
+    int contor = 0;
+
+    if(p_start == p_target)
+    {
+        strcpy(matrice[contor++], "1");
+    }
+    else
+    {
+        strcpy(matrice[contor++], "0");
+    }
+
+
+    for(int i = 2; i <= k; i++)
+    {
+        reset(next, n); 
+        
+        for(int j = 0; j < n; j++)
+        {
+            if(current[j].up > 0)
+            {
+                for(int l = 0; l < n; l++)
+                {
+                    if(mark[j][l].up > 0)
+                    {
+                        grafic temp = inmultire(current[j], mark[j][l]);
+                        next[l] = adunare(next[l], temp);
+                    }
+                }
+            }
+        }
+        
+        copiaza(next, current, n);
+        
+    if(current[p_target].up == 1 && current[p_target].down == 1)
+    {
+        strcpy(matrice[contor++], "1");
+    }
+    else if(current[p_target].up == 0)
+    {
+        strcpy(matrice[contor++], "0");
+    }
+    else
+        sprintf(matrice[contor++], "%d/%d", current[p_target].up, current[p_target].down);
+    }
+
+    for(int i = 0; i < contor; i++)
+    {
+        fprintf(outfile, "%s", matrice[i]);
+        if(i != contor-1) fprintf(outfile, "\n");
+    }
+
+    for(int i = 0; i < 50; i++) {
+        free(matrice[i]);
+    }
+    free(matrice);
+    free(current);
+    free(next);
 }
