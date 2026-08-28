@@ -1,4 +1,4 @@
-#include "arbori.h"
+#include "trees.h"
 #include <string.h>
 #include <stdlib.h>
 
@@ -193,12 +193,14 @@ void gasire_drum(TreeNode *root, StockList *head, char *s, int i, int *gasit)
         return; 
     }
 
-    if(*gasit == 0) {
+    if(*gasit == 0)
+    {
         s[i] = 's';
         gasire_drum(root->left, head, s, i+1, gasit);
     }
 
-    if(*gasit == 0) {
+    if(*gasit == 0)
+    {
         s[i] = 'd';
         gasire_drum(root->right, head, s, i+1, gasit);
     }
@@ -211,7 +213,7 @@ void opuse(TreeNode *root, StockList *head, int nr_zile, FILE *outfile)
     {
         matrice[i] = (char *) calloc(32, sizeof(char));
     }
-
+    
     char *s = (char *)calloc((nr_zile) , sizeof(char));
     char *drum = (char *)calloc((nr_zile) , sizeof(char));
     StockList *aux = head;
