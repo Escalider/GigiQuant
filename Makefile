@@ -4,7 +4,7 @@ CPPFLAGS = $(addprefix -I,$(SOURCE_DIRS))
 LDFLAGS = -lm
 
 BIN=test
-PACKAGE = Andreescu_Matei.zip
+
 
 BUILD_DIR = ./bin
 SOURCE_DIR = ./src
@@ -19,7 +19,7 @@ vpath %.c $(SOURCE_DIRS)
 
 all: $(BIN)
 
-zip: $(PACKAGE)
+
 
 $(PACKAGE): $(ZIP_FILES)
 	rm -f $@

@@ -1,6 +1,6 @@
-#include "liste.h"
-#include "stive.h"
-#include "arbori.h"
+#include "lists.h"
+#include "stacks.h"
+#include "trees.h"
 #include "mark.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,7 +17,7 @@ void task1(const char *argv[])
     FILE *infile = fopen(argv[1], "rt");
     if(infile == NULL)
     {
-        puts("Nu s a deschis fisierul");
+        puts("Can't open thhe file");
         exit(1);
     }
     Node *head = create_list(&rand_avg, &n, infile);
@@ -86,7 +86,7 @@ void task3(const char *argv[])
     FILE *infile = fopen(argv[1], "rt");
     if(infile == NULL)
     {
-        puts("Nu se deschide");
+        puts("Can't open thhe file");
         exit(1);
     }
 
@@ -102,7 +102,7 @@ void task3(const char *argv[])
     FILE *outfile = fopen(argv[2], "wt");
     opuse(root, head, n, outfile);
     fclose(outfile);
-    // afisare_matrice_si_lista(head, mat, n)
+    
 
     for(int i = 0; i < n; i++) {
         free(mat[i]);
@@ -120,7 +120,7 @@ void task4(const char *argv[])
     FILE *infile = fopen(argv[1], "rt");
     if(infile == NULL)
     {
-        puts("Nu se deschide");
+        puts("Can't open thhe file");
         exit(1);
     }
 
